@@ -68,5 +68,8 @@
     <ClInclude Include="SolarSystem.h">
       <Filter>Examples</Filter>
     </ClInclude>
+    <ClInclude Include="CrayonFace.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

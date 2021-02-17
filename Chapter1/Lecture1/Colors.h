@@ -18,5 +18,6 @@ namespace jm
 		const RGB white(255, 255, 255);
 		const RGB gold(255, 223, 0);
 		const RGB silver(192, 192, 192);
+		const RGB skin(255, 235, 203);
 	}
 }
