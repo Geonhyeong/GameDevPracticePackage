@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game2D.h"
+#include <vector>
 
 namespace jm
 {
@@ -40,7 +41,7 @@ namespace jm
 			endTransformation();
 		}
 
-		void update(const float& dt)
+		void update(const float &dt)
 		{
 			center += velocity * dt;
 		}
@@ -51,7 +52,8 @@ namespace jm
 	public:
 		MyTank tank;
 
-		MyBullet *bullet = nullptr;
+		//MyBullet *bullet = nullptr;
+		std::vector<MyBullet *> bullets;
 		//TODO: allow multiple bullets
 		//TODO: delete bullets when they go out of the screen
 
@@ -62,7 +64,10 @@ namespace jm
 
 		~TankExample()
 		{
-			if(bullet != nullptr) delete bullet;
+			for (auto &bullet : bullets)
+			{
+				if (bullet != nullptr) delete bullet;
+			}
 		}
 
 		void update() override
@@ -76,18 +81,32 @@ namespace jm
 			// shoot a cannon ball
 			if (isKeyPressedAndReleased(GLFW_KEY_SPACE))
 			{
-				bullet = new MyBullet;
+				/*bullet = new MyBullet;
+				bullet->center = tank.center;
+				bullet->center.x += 0.2f;
+				bullet->center.y += 0.1f;
+				bullet->velocity = vec2(2.0f, 0.0f);*/
+
+				MyBullet *bullet = new MyBullet;
 				bullet->center = tank.center;
 				bullet->center.x += 0.2f;
 				bullet->center.y += 0.1f;
 				bullet->velocity = vec2(2.0f, 0.0f);
+				bullets.push_back(bullet);
 			}
 
-			if (bullet != nullptr) bullet->update(getTimeStep());
+			for (auto &bullet : bullets)
+			{
+				if (bullet != nullptr)
+				{
+					bullet->update(getTimeStep());
+					bullet->draw();
+				}
+			}
 
 			// rendering
 			tank.draw();
-			if (bullet != nullptr) bullet->draw();
+			//if (bullet != nullptr) bullet->draw();
 		}
 	};
 }
