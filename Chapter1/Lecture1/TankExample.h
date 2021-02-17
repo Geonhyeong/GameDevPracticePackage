@@ -49,7 +49,6 @@ namespace jm
 
 		bool isOnDisplay(const int &width, const int &height)
 		{
-			// TODO: more strictly
 			const float aspect_ratio = (float)width / (float)height;
 			if (std::abs(this->center.x) > aspect_ratio + radius || std::abs(this->center.y) > 1.0f + radius)
 			{

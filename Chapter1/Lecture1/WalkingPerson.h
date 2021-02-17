@@ -27,6 +27,23 @@ namespace jm
 
 			endTransformation();
 
+			// yellow left arm
+			beginTransformation();
+			rotate(sin(time * 5.0f) * -30.0f);					// animation!
+			scale(1.0f, 2.0f);
+			translate(0.0f, -0.1f);
+			drawFilledBox(Colors::yellow, 0.05f, 0.18f);
+			endTransformation();
+
+			// green left leg
+			beginTransformation();
+			translate(0.0f, -0.6f);
+			translate(0.0f, 0.2f);
+			rotate(sinf(time * 5.0f + 3.141592f) * -30.0f);	// animation!
+			translate(0.0f, -0.2f);
+			drawFilledBox(Colors::green, 0.1f, 0.4f);
+			endTransformation();
+
 			// red body
 			beginTransformation();
 			scale(1.0f, 2.0f);
@@ -34,19 +51,19 @@ namespace jm
 			drawFilledBox(Colors::red, 0.13f, 0.2f);
 			endTransformation();
 
-			// yellow arm
+			// yellow right arm
 			beginTransformation();
-			rotate(sin(time*5.0f) * 30.0f);					// animation!
+			rotate(sin(time * 5.0f) * 30.0f);					// animation!
 			scale(1.0f, 2.0f);
 			translate(0.0f, -0.1f);
 			drawFilledBox(Colors::yellow, 0.05f, 0.18f);
 			endTransformation();
 
-			// green leg
+			// green right leg
 			beginTransformation();
 			translate(0.0f, -0.6f);
 			translate(0.0f, 0.2f);
-			rotate(sinf(time*5.0f + 3.141592f) * 30.0f);	// animation!
+			rotate(sinf(time * 5.0f + 3.141592f) * 30.0f);	// animation!
 			translate(0.0f, -0.2f);
 			drawFilledBox(Colors::green, 0.1f, 0.4f);
 			endTransformation();
