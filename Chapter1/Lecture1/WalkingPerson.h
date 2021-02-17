@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game2D.h"
+#include <vector>
 
 namespace jm
 {
@@ -11,13 +12,16 @@ namespace jm
 	- make an Ironman and allow for him to shoot repulsor beam with his right hand
 	*/
 
-	class WalkingPerson : public Game2D
+	class WalkingPerson
 	{
-		float time = 0.0f;
+	public:
+		vec2 center = vec2(0.0f, 0.0f);
+		//float time = 0.0f;
 
 	public:
-		void update() override
+		void draw(const float &time)
 		{
+			translate(center);
 			// gold face
 			beginTransformation();
 			translate(0.0f, 0.12f);
@@ -67,6 +71,56 @@ namespace jm
 			translate(0.0f, -0.2f);
 			drawFilledBox(Colors::green, 0.1f, 0.4f);
 			endTransformation();
+
+			//time += this->getTimeStep();
+		}
+
+		//void shoot()
+		//{
+		//	translate(center);
+		//	// gold face
+		//	beginTransformation();
+		//	translate(0.0f, 0.12f);
+		//	drawFilledCircle(Colors::gold, 0.08f);
+		//	translate(0.05f, 0.03f);
+		//	drawFilledCircle(Colors::white, 0.01f); // while eye
+
+		//	endTransformation();
+		//}
+	};
+
+	class WalkingPersonExample : public Game2D
+	{
+	public:
+		std::vector<WalkingPerson> myPerson;
+		float time = 0.0f;
+
+	public:
+		WalkingPersonExample()
+			: Game2D("This is my digital canvas!", 1024, 768, false, 2)
+		{}
+
+		~WalkingPersonExample()
+		{
+		}
+
+		void update() override
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				WalkingPerson person;
+				person.center += vec2((float)i * 0.3, (float)i * 0.3);
+				person.draw(time);
+				myPerson.push_back(person);
+			}
+
+			/*if (isKeyPressedAndReleased(GLFW_KEY_SPACE))
+			{
+				for (auto &person : myPerson)
+				{
+					person.shoot();
+				}
+			}*/
 
 			time += this->getTimeStep();
 		}
