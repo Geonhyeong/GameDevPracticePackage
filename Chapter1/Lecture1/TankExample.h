@@ -9,7 +9,7 @@ namespace jm
 	{
 	public:
 		vec2 center = vec2(0.0f, 0.0f);
-		//vec2 direction = vec2(1.0f, 0.0f, 0.0f);
+		vec2 direction = vec2(1.0f, 0.0f);
 
 		void draw()
 		{
@@ -17,9 +17,9 @@ namespace jm
 			{
 				translate(center);
 				drawFilledBox(Colors::green, 0.25f, 0.1f); // body
-				translate(-0.02f, 0.1f);
+				translate(-0.02f * direction.x, 0.1f);
 				drawFilledBox(Colors::blue, 0.15f, 0.09f); // turret
-				translate(0.15f, 0.0f);
+				translate(0.15f * direction.x, 0.0f);
 				drawFilledBox(Colors::red, 0.15f, 0.03f);  // barrel
 			}
 			endTransformation();
@@ -31,13 +31,14 @@ namespace jm
 	public:
 		vec2 center = vec2(0.0f, 0.0f);
 		vec2 velocity = vec2(0.0f, 0.0f);
+		const float radius = 0.02f;
 
 		void draw()
 		{
 			beginTransformation();
 			translate(center);
-			drawFilledRegularConvexPolygon(Colors::yellow, 0.02f, 8);
-			drawWiredRegularConvexPolygon(Colors::gray, 0.02f, 8);
+			drawFilledRegularConvexPolygon(Colors::yellow, radius, 8);
+			drawWiredRegularConvexPolygon(Colors::gray, radius, 8);
 			endTransformation();
 		}
 
@@ -48,10 +49,11 @@ namespace jm
 
 		bool isOnDisplay(const int &width, const int &height)
 		{
+			// TODO: more strictly
 			const float aspect_ratio = (float)width / (float)height;
-			if (std::abs(this->center.x) > aspect_ratio || std::abs(this->center.y) > 1.0f)
+			if (std::abs(this->center.x) > aspect_ratio + radius || std::abs(this->center.y) > 1.0f + radius)
 			{
-				//std::cout << "bullet is out of display" << std::endl;
+				std::cout << "bullet is out of display" << std::endl;
 				return false;
 			}
 			return true;
@@ -65,8 +67,6 @@ namespace jm
 
 		//MyBullet *bullet = nullptr;
 		std::vector<MyBullet *> bullets;
-		//TODO: allow multiple bullets
-		//TODO: delete bullets when they go out of the screen
 		const int width = 1024;
 		const int height = 768;
 
@@ -86,25 +86,27 @@ namespace jm
 		void update() override
 		{
 			// move tank
-			if (isKeyPressed(GLFW_KEY_LEFT))	tank.center.x -= 0.5f * getTimeStep();
-			if (isKeyPressed(GLFW_KEY_RIGHT))	tank.center.x += 0.5f * getTimeStep();
+			if (isKeyPressed(GLFW_KEY_LEFT))
+			{
+				tank.center.x -= 0.5f * getTimeStep();
+				tank.direction.x = -1.0f;
+			}
+			if (isKeyPressed(GLFW_KEY_RIGHT))
+			{
+				tank.center.x += 0.5f * getTimeStep();
+				tank.direction.x = 1.0f;
+			}
 			if (isKeyPressed(GLFW_KEY_UP))		tank.center.y += 0.5f * getTimeStep();
 			if (isKeyPressed(GLFW_KEY_DOWN))	tank.center.y -= 0.5f * getTimeStep();
 
 			// shoot a cannon ball
 			if (isKeyPressedAndReleased(GLFW_KEY_SPACE))
 			{
-				/*bullet = new MyBullet;
-				bullet->center = tank.center;
-				bullet->center.x += 0.2f;
-				bullet->center.y += 0.1f;
-				bullet->velocity = vec2(2.0f, 0.0f);*/
-
 				MyBullet *bullet = new MyBullet;
 				bullet->center = tank.center;
-				bullet->center.x += 0.2f;
+				bullet->center.x += 0.2f * tank.direction.x;
 				bullet->center.y += 0.1f;
-				bullet->velocity = vec2(2.0f, 0.0f);
+				bullet->velocity = vec2(2.0f * tank.direction.x, 0.0f);
 				bullets.push_back(bullet);
 			}
 
