@@ -45,6 +45,17 @@ namespace jm
 		{
 			center += velocity * dt;
 		}
+
+		bool isOnDisplay(const int &width, const int &height)
+		{
+			const float aspect_ratio = (float)width / (float)height;
+			if (std::abs(this->center.x) > aspect_ratio || std::abs(this->center.y) > 1.0f)
+			{
+				//std::cout << "bullet is out of display" << std::endl;
+				return false;
+			}
+			return true;
+		}
 	};
 
 	class TankExample : public Game2D
@@ -56,6 +67,8 @@ namespace jm
 		std::vector<MyBullet *> bullets;
 		//TODO: allow multiple bullets
 		//TODO: delete bullets when they go out of the screen
+		const int width = 1024;
+		const int height = 768;
 
 	public:
 		TankExample()
@@ -95,18 +108,21 @@ namespace jm
 				bullets.push_back(bullet);
 			}
 
-			for (auto &bullet : bullets)
-			{
-				if (bullet != nullptr)
-				{
-					bullet->update(getTimeStep());
-					bullet->draw();
-				}
-			}
-
 			// rendering
 			tank.draw();
-			//if (bullet != nullptr) bullet->draw();
+
+			auto iterator = 0;
+			for (auto &bullet : bullets)
+			{
+				bullet->update(getTimeStep());
+				bullet->draw();
+				if (!bullet->isOnDisplay(width, height))
+				{
+					delete bullet;
+					bullets.erase(bullets.begin() + iterator);
+				}
+				iterator++;
+			}
 		}
 	};
 }
