@@ -166,6 +166,7 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WalkingPerson.h" />
     <ClInclude Include="CrayonFace.h" />
+    <ClInclude Include="MouseExample.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

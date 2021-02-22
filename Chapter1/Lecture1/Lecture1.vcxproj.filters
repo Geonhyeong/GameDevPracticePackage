@@ -71,5 +71,8 @@
     <ClInclude Include="CrayonFace.h">
       <Filter>Examples</Filter>
     </ClInclude>
+    <ClInclude Include="MouseExample.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
