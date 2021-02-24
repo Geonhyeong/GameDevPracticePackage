@@ -48,5 +48,8 @@
     <ClInclude Include="Engine\RandomNumberGenerator.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="HouseExample.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
