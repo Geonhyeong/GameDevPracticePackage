@@ -53,9 +53,6 @@
     <ClInclude Include="Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FaceExample.h">
-      <Filter>Examples</Filter>
-    </ClInclude>
     <ClInclude Include="PrimitivesGallery.h">
       <Filter>Examples</Filter>
     </ClInclude>
