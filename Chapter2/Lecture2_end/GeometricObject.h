@@ -4,13 +4,14 @@
 
 namespace jm
 {
-	class GeometricObject
+	class GeometricObject : public Game2D
 	{
 	public:
 		vec2 pos;
 		RGB  color;
+		float time = 0.0f;
 
-		void init(const RGB & _color, const vec2 & _pos)
+		void init(const RGB &_color, const vec2 &_pos)
 		{
 			color = _color;
 			pos = _pos;
@@ -23,9 +24,11 @@ namespace jm
 			beginTransformation();
 			{
 				translate(pos);
+				rotate(getRadian(time * 360.0f * 10.0f));
 				drawGeometry();
 			}
 			endTransformation();
+			time += this->getTimeStep();
 		}
 	};
 }

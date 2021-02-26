@@ -9,7 +9,7 @@ namespace jm
 	public:
 		float size;
 
-		void init(const RGB & _color, const vec2 & _pos, const float & _size)
+		void init(const RGB &_color, const vec2 &_pos, const float &_size)
 		{
 			GeometricObject::init(_color, _pos);
 			size = _size;
@@ -17,7 +17,7 @@ namespace jm
 
 		void drawGeometry() const override
 		{
-			drawFilledCircle(color, size);
+			drawFilledCircle(GeometricObject::color, size);
 		}
 	};
 }

@@ -23,10 +23,10 @@ namespace jm
 	class Game2D
 	{
 	private:
-		int width = 640;
-		int height = 480;
+		int width = 1280;
+		int height = 960;
 
-		GLFWwindow* glfw_window = nullptr;
+		GLFWwindow *glfw_window = nullptr;
 
 		Timer timer;
 
@@ -41,25 +41,25 @@ namespace jm
 		Game2D()
 		{}
 
-		Game2D(const std::string& _title, const int& _width, const int& _height,
-			const bool & use_full_screen = false, const int & display_ix = 0);
+		Game2D(const std::string &_title, const int &_width, const int &_height,
+			const bool &use_full_screen = false, const int &display_ix = 0);
 
 		~Game2D();
 
-		Game2D & init(const std::string& _title, const int& _width, const int& _height,
-			const bool & use_full_screen = false, const int & display_ix = 0);
+		Game2D &init(const std::string &_title, const int &_width, const int &_height,
+			const bool &use_full_screen = false, const int &display_ix = 0);
 
-		void reportErrorAndExit(const std::string& function_name, const std::string& message);
+		void reportErrorAndExit(const std::string &function_name, const std::string &message);
 
-		bool isKeyPressed(const int& key);
-		bool isKeyReleased(const int & key);
-		bool isKeyPressedAndReleased(const int& key);
+		bool isKeyPressed(const int &key);
+		bool isKeyReleased(const int &key);
+		bool isKeyPressedAndReleased(const int &key);
 
-		bool isMouseButtonPressed(const int& mbtn);
-		bool isMouseButtonReleased(const int& mbtn);
-		bool isMouseButtonPressedAndReleased(const int& mbtn);
+		bool isMouseButtonPressed(const int &mbtn);
+		bool isMouseButtonReleased(const int &mbtn);
+		bool isMouseButtonPressedAndReleased(const int &mbtn);
 
-		vec2 getCursorPos(const bool& screen_coordinates = true);
+		vec2 getCursorPos(const bool &screen_coordinates = true);
 
 		float getTimeStep();
 
@@ -67,7 +67,7 @@ namespace jm
 
 		void run();
 
-		virtual void update() 
+		virtual void update()
 		{
 			// draw
 			// play sould

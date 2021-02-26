@@ -6,9 +6,9 @@
 
 namespace jm
 {
-	Game2D::Game2D(const std::string & _title, const int & _width, const int & _height,
-				   const bool & use_full_screen, 
-				   const int & display_ix) // for multiple displays
+	Game2D::Game2D(const std::string &_title, const int &_width, const int &_height,
+		const bool &use_full_screen,
+		const int &display_ix) // for multiple displays
 	{
 		init(_title, _width, _height, use_full_screen, display_ix);
 	}
@@ -18,19 +18,19 @@ namespace jm
 		glfwDestroyWindow(glfw_window); // cannot 'delete' glfw_window
 	}
 
-	Game2D& Game2D::init(const std::string & _title, const int & _width, const int & _height, const bool & use_full_screen, const int & display_ix)
+	Game2D &Game2D::init(const std::string &_title, const int &_width, const int &_height, const bool &use_full_screen, const int &display_ix)
 	{
-		if (glfw_window != nullptr){
+		if (glfw_window != nullptr) {
 			std::cout << "Skip second initialization" << std::endl;
 			return *this;
 		}
 
 		if (!glfwInit()) reportErrorAndExit(__FUNCTION__, "glfw initialization");
 
-		const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
 		int num_monitors;
-		GLFWmonitor ** monitors = glfwGetMonitors(&num_monitors);
+		GLFWmonitor **monitors = glfwGetMonitors(&num_monitors);
 
 		if (!use_full_screen) {
 			glfw_window = glfwCreateWindow(_width, _height, _title.c_str(), NULL, NULL);
@@ -87,7 +87,7 @@ namespace jm
 		return *this; // chaining (See TBC++ 8.7)
 	}
 
-	void Game2D::reportErrorAndExit(const std::string & function_name, const std::string & message)
+	void Game2D::reportErrorAndExit(const std::string &function_name, const std::string &message)
 	{
 		std::cout << "Error: " << function_name << " " << message << std::endl;
 
@@ -96,7 +96,7 @@ namespace jm
 		exit(1);
 	}
 
-	bool Game2D::isKeyPressed(const int & key)
+	bool Game2D::isKeyPressed(const int &key)
 	{
 		if (key_status.count(key) <= 0) key_status[key] = false;
 
@@ -108,7 +108,7 @@ namespace jm
 		return key_status[key];
 	}
 
-	bool Game2D::isKeyReleased(const int & key)
+	bool Game2D::isKeyReleased(const int &key)
 	{
 		if (key_status.count(key) <= 0) key_status[key] = false;
 
@@ -120,7 +120,7 @@ namespace jm
 		return key_status[key];
 	}
 
-	bool Game2D::isKeyPressedAndReleased(const int & key)
+	bool Game2D::isKeyPressedAndReleased(const int &key)
 	{
 		if (key_status.count(key) <= 0) key_status[key] = false; // register key to map
 
@@ -141,7 +141,7 @@ namespace jm
 		}
 	}
 
-	bool Game2D::isMouseButtonPressed(const int & key)
+	bool Game2D::isMouseButtonPressed(const int &key)
 	{
 		if (mbtn_status.count(key) <= 0) mbtn_status[key] = false;
 
@@ -153,7 +153,7 @@ namespace jm
 		return mbtn_status[key];
 	}
 
-	bool Game2D::isMouseButtonReleased(const int & key)
+	bool Game2D::isMouseButtonReleased(const int &key)
 	{
 		if (mbtn_status.count(key) <= 0) mbtn_status[key] = false;
 
@@ -165,7 +165,7 @@ namespace jm
 		return mbtn_status[key];
 	}
 
-	bool Game2D::isMouseButtonPressedAndReleased(const int & mbtn)
+	bool Game2D::isMouseButtonPressedAndReleased(const int &mbtn)
 	{
 		if (mbtn_status.count(mbtn) <= 0) mbtn_status[mbtn] = false; // register key to map
 
@@ -186,14 +186,14 @@ namespace jm
 		}
 	}
 
-	vec2 Game2D::getCursorPos(const bool& screen_coordinates)
+	vec2 Game2D::getCursorPos(const bool &screen_coordinates)
 	{
 		double x_pos, y_pos;
 		glfwGetCursorPos(glfw_window, &x_pos, &y_pos);
-		// Note that (0, 0) is left up corner. 
+		// Note that (0, 0) is left up corner.
 		// This is different from our screen coordinates.
 		// 0 <= x <= width - 1
-		// height - 1 >= y >= 0 
+		// height - 1 >= y >= 0
 
 		if (screen_coordinates) // assumes width >= height
 		{
@@ -218,7 +218,7 @@ namespace jm
 	void Game2D::run()
 	{
 		if (glfw_window == nullptr)
-			init("This is my digital canvas!", 1280, 960, false); // initialize with default setting
+			init("This is my digital canvas!", width, height, false); // initialize with default setting
 
 		while (!glfwWindowShouldClose(glfw_window))// main loop
 		{
@@ -245,7 +245,7 @@ namespace jm
 
 			// post draw
 			glfwSwapBuffers(glfw_window); // double buffering
-			//glfwSetInputMode(glfw_window, GLFW_STICKY_KEYS, GLFW_FALSE); // not working 
+			//glfwSetInputMode(glfw_window, GLFW_STICKY_KEYS, GLFW_FALSE); // not working
 			glfwPollEvents();
 
 			//const double dt = timer.stopAndGetElapsedMilli();
@@ -257,7 +257,7 @@ namespace jm
 			//{
 			//	const auto time_to_sleep = static_cast<int>((spf - dt) * 1000.0f);
 			//	std::this_thread::sleep_for(std::chrono::milliseconds(time_to_sleep));
-			//	
+			//
 			//	//Debugging
 			//	//std::cout << "sleep " << time_to_sleep << std::endl;
 			//}
@@ -265,12 +265,12 @@ namespace jm
 
 		glfwTerminate();
 	}
-	
+
 	float Game2D::getTimeStep()
 	{
 		return spf;
 	}
-	
+
 	void Game2D::drawGrid()
 	{
 		if (isKeyPressedAndReleased(GLFW_KEY_G)) draw_grid = !draw_grid;
