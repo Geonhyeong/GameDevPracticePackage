@@ -10,7 +10,10 @@ namespace jm
 		vec2 pos;
 		RGB  color;
 
-		void init(const RGB & _color, const vec2 & _pos)
+		virtual ~GeometricObject()
+		{}
+
+		void init(const RGB &_color, const vec2 &_pos)
 		{
 			color = _color;
 			pos = _pos;
