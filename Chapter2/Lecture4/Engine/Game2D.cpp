@@ -241,9 +241,6 @@ namespace jm
 
 			update();	// the major worker function
 
-			//// text input
-			//glfwSetCharCallback(glfw_window, addCallback);
-
 			glPopMatrix();
 
 			// post draw

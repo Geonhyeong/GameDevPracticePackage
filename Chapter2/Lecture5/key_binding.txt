@@ -1,4 +1,4 @@
-SPACE shoot
+LEFT_SHIFT shoot
 W move_up
 S move_down
 A move_left
